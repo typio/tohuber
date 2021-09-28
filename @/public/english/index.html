@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Relationships</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+</head>
+
+<body>
+    <h1 class="title">Relationships</h1>
+
+    <div class="slideshows">
+        <div class="siddharthaSlides pop">
+            <div class="siddhartha ">
+                <img src="rock.png" alt="pic" style="width:12vw;height:12vw;">
+            </div>
+            <div class="siddhartha ">
+                <img src="river.jpg" alt="pic" style="width:12vw;height:12vw;">
+            </div>
+            <div class="siddhartha ">
+                <img src="siddhartha.jpg" alt="pic" style="width:12vw;height:12vw;">
+            </div>
+        </div>
+
+        <div class="madmenSlides pop">
+            <div class="madmen">
+                <img src="bird.jpg" alt="pic" style="width:12vw;height:12vw;">
+            </div>
+            <div class="madmen">
+                <img src="fish.jpg" alt="pic" style="width:12vw;height:12vw;">
+            </div>
+            <div class="madmen">
+                <img src="monkey.jpg" alt="pic" style="width:12vw;height:12vw;">
+            </div>
+        </div>
+
+        <div class="unnamesSlides pop">
+            <div class="unnames">
+                <img src="yak.jpg" alt="pic" style="width:12vw;height:12vw;">
+            </div>
+            <div class="unnames">
+                <img src="cat.jpg" alt="pic" style="width:12vw;height:12vw;">
+            </div>
+            <div class="unnames">
+                <img src="horse.jpg" alt="pic" style="width:12vw;height:12vw;">
+            </div>
+        </div>
+    </div>
+
+    <div class="subtitles">
+        <h2>Siddhartha</h2>
+        <h2>Diary of a Mad Man</h2>
+        <h2>She Unnames Them</h2>
+    </div>
+
+    <h4 class="info">
+        T h o m a s H
+        <br> E n g l i s h
+        <br> 8 / 7 / 1 8
+    </h4>
+</body>
+
+<script>
+    var slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        var i;
+        var siddharthaSlides = document.getElementsByClassName("siddhartha");
+        var madmenSlides = document.getElementsByClassName("madmen");
+        var unnamesSlides = document.getElementsByClassName("unnames");
+        for (i = 0; i < siddharthaSlides.length; i++) {
+            siddharthaSlides[i].style.display = "none";
+            madmenSlides[i].style.display = "none";
+            unnamesSlides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > siddharthaSlides.length) {
+            slideIndex = 1
+        }
+        siddharthaSlides[slideIndex - 1].style.display = "inline-block";
+        madmenSlides[slideIndex - 1].style.display = "inline-block";
+        unnamesSlides[slideIndex - 1].style.display = "inline-block";
+        setTimeout(showSlides, 1000);
+    }
+</script>
+
+</html>

@@ -1,0 +1,57 @@
+html,
+body {
+    background-color: #fff;
+    margin: 0;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #000;
+}
+
+hr {
+    height: 4px;
+    outline: none;
+    background-color: #000;
+}
+
+#wrapper {
+    position: absolute;
+    left: 0;
+    width: 25vw;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    margin-left: -12.5vw;
+    margin-top: -12.5vh;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+p,
+a {
+    margin: 0;
+    line-height: 2.4em;
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+}
+
+p:hover,
+a:hover {
+    color: #f23;
+}
+
+@media only screen and (max-width: 600px) {
+    p,
+    a {
+        font-size: 1em;
+    }
+}

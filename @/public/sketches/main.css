@@ -1,0 +1,57 @@
+* {
+    user-select: none;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #000;
+}
+
+html,
+body {
+    background-color: #fff;
+    margin: 0;
+}
+
+.sketches,
+.titles {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    width: 78vw;
+    margin: auto;
+    margin-top: 10vh;
+}
+
+.titles {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: -5%;
+    top: 5%;
+    right: 0;
+    z-index: 2;
+    text-align: center;
+}
+
+iframe {
+    width: 26vw;
+    height: 20vh;
+    border: none;
+}
+
+h2 {
+    font-family: "Fredoka One", sans-serif;
+    font-size: 1.4vw;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-family: "Roboto", sans-serif;
+    font-size: .8vw;
+    text-transform: uppercase;
+}
+

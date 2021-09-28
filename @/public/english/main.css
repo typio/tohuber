@@ -1,0 +1,121 @@
+html {
+    background-color: #f2f3f4;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+body {
+    text-align: center;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background: #102050
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00ff88;
+}
+
+.title {
+    display: inline-block;
+    font-family: 'Lobster', Arial;
+    font-size: 6vw;
+    margin-top: 8.25vh;
+    color: #102050;
+}
+
+.title:hover {
+    animation-name: title;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.siddhartha {
+    display: none;
+}
+
+.siddharthaSlides {
+    margin-left: 10.7vw;
+    width: 12vw;
+    height: 12vw;
+    display: inline-block;
+}
+
+.madmen {
+    display: none;
+}
+
+.madmenSlides {
+    margin-left: 10.7vw;
+    width: 12vw;
+    height: 12vw;
+    display: inline-block;
+}
+
+.unnames {
+    display: none;
+}
+
+.unnamesSlides {
+    margin-left: 10.7vw;
+    width: 12vw;
+    height: 12vw;
+    display: inline-block;
+}
+
+img {
+    vertical-align: middle;
+    
+}
+
+.subtitles {
+    font-family: 'Lobster', Arial;
+    display: grid;
+    grid-template-columns: 33vw 33vw 33vw;
+    margin-top: 4vh;
+}
+
+.info {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: justify;
+    text-align-last: justify;
+    letter-spacing: -0.2em;
+    position: absolute;
+    bottom: 0;
+    right: 1.45vw;
+}
+
+.info:hover {
+    text-shadow: 2px 2px #00ff88;
+}
+
+@keyframes title {
+    from {}
+    to {
+        text-shadow: 3px 5px #00ff88;
+    }
+}
+
+.slideshows {
+    display: grid;
+    grid-template-columns: 33vw 33vw 33vw;
+    margin-top: 10vh;
+    
+}
+
+.pop {
+    outline: #102050 solid 4px;
+}
+
+.pop:hover {
+    -webkit-animation: pop 0.3s ease-in both;
+    animation: pop 0.3s ease-in both;
+}
