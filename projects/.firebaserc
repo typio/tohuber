@@ -1,6 +1,5 @@
 {
   "projects": {
-    "default": "projects-tohuber",
-    "projects-tohuber": "projects-tohuber-ba7cc"
+    "default": "projects-tohuber-ba7cc"
   }
 }
