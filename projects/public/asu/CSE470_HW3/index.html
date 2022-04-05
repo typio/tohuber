@@ -1,0 +1,218 @@
+<!-- Thomas Huber -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Lights, Camera, Action!</title>
+
+    <script type="text/javascript" src="Common/webgl-utils.js"></script>
+    <script type="text/javascript" src="Common/initShaders.js"></script>
+    <script type="text/javascript" src="Common/MV.js"></script>
+
+    <script src="geometry.js" defer></script>
+    <script src="main.js" defer></script>
+
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        attribute vec3 vPosition;
+        attribute vec3 vNormal;
+
+        varying vec4 fColor;
+
+        uniform vec4 ambientProduct, diffuseProduct, specularProduct;
+        uniform mat4 modelViewMatrix;
+        uniform mat4 projectionMatrix;
+        uniform vec4 lightPosition;
+        uniform float shininess; 
+        
+        void main() {
+            vec4 pos4D = vec4(vPosition, 1.0);
+            vec4 nor4D = vec4(vNormal, 0.0);
+            
+            //compute lighting in eye coordinates
+            vec3 pos = (modelViewMatrix * pos4D).xyz;
+            // input light has been defined in eye coords in js
+            vec3 light = lightPosition.xyz;
+            vec3 L = normalize( light - pos );
+
+            // eye coordinates assumes eye at origin
+            vec3 eyePoint = vec3(0.0, 0.0, 0.0);
+            vec3 E = normalize( eyePoint - pos );
+
+            // halfway vector
+            vec3 H = normalize( L + E );
+            
+            // Transform vertex normal into eye coordinates
+            vec3 N = normalize( (modelViewMatrix*nor4D).xyz);
+
+            // Compute terms in the illumination equation
+            vec4 ambient = ambientProduct;
+
+            float Kd = max( dot(L, N), 0.0 );
+            vec4  diffuse = Kd*diffuseProduct;
+            
+            // play: this is how you might do debugging; 
+            //setting colors on condition
+            //if(dot(L, N) < 0.0) diffuse = vec4(1.0, 0.0, 0.0, 1.0);
+
+            float Ks = pow( max(dot(N, H), 0.0), shininess );
+            vec4  specular = Ks * specularProduct;
+            
+            if( dot(L, N) < 0.0 ) {
+                specular = vec4(0.0, 0.0, 0.0, 1.0);
+            } 
+            
+            // play  
+            //diffuse = vec4(0.0, 0.0, 0.0, 1.0);
+            //ambient = vec4(0.0, 0.0, 0.0, 1.0);
+            //specular = vec4(0.0, 0.0, 0.0, 1.0);
+            
+            fColor = ambient + diffuse +specular;
+            fColor.a = 1.0;
+            
+            gl_Position = projectionMatrix * modelViewMatrix * pos4D;
+        }
+        </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+            
+            varying vec4 fColor;
+            
+            void main() {
+                gl_FragColor = fColor;
+            }
+        </script>
+</head>
+
+
+<body>
+    <h1>Lights, Camera, Action!</h1>
+    <div class="canvas-and-about">
+
+        <canvas id="gl-canvas" width="512" height="512" style="border:solid;" oncontextmenu="return false"></canvas>
+        <ul>
+            <li>Thomas Huber</li>
+            <li>4/8/2022</li>
+            <li>This is an interactive program demonstrating 3D surfaces of revolution in WebGL with Phong illumination
+                and Gouraud shading. Drag in the canvas to move the camera (left click to rotate & right click to move
+                in/out) and try out the other inputs!</li>
+            <li>Resources used: </li>
+            <ul>
+                <li>
+                    Class provided materials
+                </li>
+                <li>
+                    https://en.wikipedia.org/wiki/Square_wave
+                </li>
+            </ul>
+        </ul>
+
+    </div>
+    <p>
+    </p>
+    <div class="options">
+        <div class="options-materials">
+            <div>
+                <label for="sor-select">Surface of Revolution: </label>
+                <select name="sor-select" id="sor-select">
+                    <option value="line-square">Line and Square Wave</option>
+                    <option value="line">Line</option>
+                    <option value="square-wave">Square Wave</option>
+                    <option value="sine">Sine</option>
+                </select>
+            </div>
+            <div>
+                <label for="material-select">Material: </label>
+                <select name="material-select" id="material-select">
+                    <option value="emerald">Emerald</option>
+                    <option value="gold">Gold</option>
+                    <option value="paper">Paper</option>
+                </select>
+            </div>
+            <div>
+                <label for="shininess-select">Shininess: </label>
+                <input id="shininess-select" type="range" min="0" max="100"/>
+            </div>
+        </div>
+
+        <div class="options-camera">
+            <label for="fov-slider">Vertical FOV: </label>
+            <input type="range" name="" id="fov-slider" min="10" max="100">
+            <p id="fov-value">60°</p>
+        </div>
+
+        <div class="options-light">
+            <label for="ambient-color">Ambient Light Color</label>
+            <input type="color" value="#999999" name="" id="ambient-color">
+            <label for="diffuse-color">Diffuse Light Color</label>
+            <input type="color" value="#ffffff" name="" id="diffuse-color">
+            <label for="specular-color">Specular Light Color</label>
+            <input type="color" value="#0000ff" name="" id="specular-color">
+            <button id="move-light-to-eye">Move light to eye</button>
+            <!-- Extra Credit -->
+            <button id="animate-light">Stop Light</button>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    .canvas-and-about {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    ul {
+        list-style-type: none;
+        max-width: 450px;
+    }
+
+    .options {
+        display: flex;
+        align-items: center;
+        padding: 2rem;
+    }
+
+    .options>* {
+        padding: 0 2rem 0 2rem;
+    }
+
+    .options-materials {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .options-materials>label {
+        padding-right: 1rem;
+    }
+
+    .options-camera {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .options-light {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .options-light>input, .options-light>button {
+        margin-bottom: 1rem;
+    }
+</style>

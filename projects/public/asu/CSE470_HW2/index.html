@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Spinning Cube</title>
+
+    <script type="text/javascript" src="Common/webgl-utils.js"></script>
+    <script type="text/javascript" src="Common/initShaders.js"></script>
+    <script type="text/javascript" src="Common/MV.js"></script>
+
+
+    <script src="spinningCube.js"></script>
+    <script src="createCube.js"></script>
+
+    <script id="vertex-shader" type="x-shader/x-vertex">
+            attribute vec4 vPosition;
+            attribute vec4 vColor;
+
+            uniform mat4 modelView;
+
+            varying vec4 fColor;
+            
+            void main() {
+                fColor = vColor;
+            
+                gl_Position =  modelView * vPosition; // oh man got stuck here because order really matters
+            } 
+        </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+            
+            varying vec4 fColor;
+            
+            void main() {
+                gl_FragColor = fColor;
+            }
+        </script>
+</head>
+
+
+<body>
+    <h1>Spinning Cubes</h1>
+    <canvas id="gl-canvas" width="512" height="512" style="border:solid;"></canvas>
+    <p>Click to change rotation</p>
+    <button id="xButton">x-axis</button>
+    <button id="yButton">y-axis</button>
+    <button id="zButton">z-axis</button>
+    <button id="randomRotation">random rotation</button>
+    <button id="randomSpeed">random speed</button>
+    <br>
+    <button id="clear">Clear Canvas</button>
+</body>
+
+<p>This is an interactive program showing spinning cubes. Click in the canvas to create a cube and try out the buttons!
+</p>
+
+</html>
