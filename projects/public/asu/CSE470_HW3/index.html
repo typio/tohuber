@@ -98,9 +98,16 @@
         <ul>
             <li>Thomas Huber</li>
             <li>4/8/2022</li>
-            <li>This is an interactive program demonstrating 3D surfaces of revolution in WebGL with Phong illumination
-                and Gouraud shading. Drag in the canvas to move the camera (left click to rotate & right click to move
-                in/out) and try out the other inputs!</li>
+            <br>
+            <li>
+                &emsp; This is an interactive program demonstrating the triangulation of 3D surfaces of revolution in
+                WebGL, with the Phong illumination model and Gouraud shading.
+                <br>
+                <br>
+                &emsp; Drag in the canvas to move the camera (left click to rotate & right click to move
+                in/out) and try out the other inputs!
+            </li>
+            <br>
             <li>Resources used: </li>
             <ul>
                 <li>
@@ -130,13 +137,21 @@
                 <label for="material-select">Material: </label>
                 <select name="material-select" id="material-select">
                     <option value="emerald">Emerald</option>
+                    <option value="ruby">Ruby</option>
+                    <option value="jade">Jade</option>
+                    <option value="pearl">Pearl</option>
+                    <option value="obsidian">Obsidian</option>
                     <option value="gold">Gold</option>
-                    <option value="paper">Paper</option>
+                    <option value="copper">Copper</option>
+                    <option value="brass">Brass</option>
+                    <option value="silver">Silver</option>
+                    <option value="plastic">White Plastic</option>
+                    <option value="rubber">Red Rubber</option>
                 </select>
             </div>
             <div>
                 <label for="shininess-select">Shininess: </label>
-                <input id="shininess-select" type="range" min="0" max="100"/>
+                <input id="shininess-select" type="range" min="0" max="100" />
             </div>
         </div>
 
@@ -148,11 +163,11 @@
 
         <div class="options-light">
             <label for="ambient-color">Ambient Light Color</label>
-            <input type="color" value="#999999" name="" id="ambient-color">
+            <input type="color" value="#ffffff" name="" id="ambient-color">
             <label for="diffuse-color">Diffuse Light Color</label>
             <input type="color" value="#ffffff" name="" id="diffuse-color">
             <label for="specular-color">Specular Light Color</label>
-            <input type="color" value="#0000ff" name="" id="specular-color">
+            <input type="color" value="#ffffff" name="" id="specular-color">
             <button id="move-light-to-eye">Move light to eye</button>
             <!-- Extra Credit -->
             <button id="animate-light">Stop Light</button>
@@ -212,7 +227,8 @@
         align-items: center;
     }
 
-    .options-light>input, .options-light>button {
+    .options-light>input,
+    .options-light>button {
         margin-bottom: 1rem;
     }
 </style>

@@ -33,31 +33,87 @@ let far = radius * farFactor
 
 let lightPosition = vec4(20.0, 20.0, 20.0, 1.0)
 
-let lightAmbient = vec4(0.6, 0.6, 0.6, 1.0)
+let lightAmbient = vec4(1, 1, 1, 1.0)
 let lightDiffuse = vec4(1.0, 1.0, 1.0, 1.0)
-let lightSpecular = vec4(0.0, 0.0, 1.0, 1.0)
+let lightSpecular = vec4(1, 1, 1.0, 1.0)
 
 let animateLight = true
 
 const material_emerald = {
-  ambient: vec4(0x50 / 0xFF, 0xc8 / 0xFF, 0x78 / 0xFF, 1.0),
-  diffuse: vec4(0x50 / 0xFF, 0xc8 / 0xFF, 0x78 / 0xFF, 1.0),
-  specular: vec4(1, 1, 1, 1.0),
-  shininess: 50.0,
+  ambient: vec4(0.0215, 0.1745, 0.0215, 1.0),
+  diffuse: vec4(0.07568, 0.61424, 0.07568, 1.0),
+  specular: vec4(0.633, 0.727811, 0.633, 1.0),
+  shininess: 0.6*128,
 }
 
 const material_gold = {
-  ambient: vec4(0xFF / 0xFF, 0xD7 / 0xFF, 0x00 / 0xFF, 1.0),
-  diffuse: vec4(0xFF / 0xFF, 0xD7 / 0xFF, 0x00 / 0xFF, 1.0),
-  specular: vec4(1, 1, 1, 1.0),
-  shininess: 100.0,
+  ambient: vec4(0.24725, 0.1995, 0.0745, 1.0),
+  diffuse: vec4(0.75164, 0.60648, 0.22648, 1.0),
+  specular: vec4(0.628281, 0.555802, 0.366065, 1.0),
+  shininess: 0.4*128,
 }
 
-const material_paper = {
-  ambient: vec4(0xFB / 0xFF, 0xFB / 0xFF, 0xF8 / 0xFF, 1.0),
-  diffuse: vec4(0xFB / 0xFF, 0xFB / 0xFF, 0xF8 / 0xFF, 1.0),
-  specular: vec4(1, 1, 1, 1.0),
-  shininess: 5,
+const material_plastic = {
+  ambient: vec4(0, 0, 0, 1.0),
+  diffuse: vec4(0.55, 0.55, 0.55, 1.0),
+  specular: vec4(0.70, 0.70, 0.70, 1.0),
+  shininess: .25*128,
+}
+
+const material_jade = {
+  ambient: vec4(0.135, 0.2225, 0.1575, 1.0),
+  diffuse: vec4(0.54, 0.89, 0.63, 1.0),
+  specular: vec4(0.316228, 0.316228, 0.316228, 1.0),
+  shininess: 0.1*128,
+}
+
+const material_pearl = {
+  ambient: vec4(0.25, 0.20725, 0.20725, 1.0),
+  diffuse: vec4(1, 0.829, 0.829, 1.0),
+  specular: vec4(0.296648, 0.296648, 0.296648 , 1.0),
+  shininess: 0.088*128,
+}
+
+const material_obsidian = {
+  ambient: vec4(0.05375, 0.05, 0.06625, 1.0),
+  diffuse: vec4(0.18275, 0.17, 0.22525, 1.0),
+  specular: vec4(0.332741, 0.328634, 0.346435, 1.0),
+  shininess: 0.3*128,
+}
+
+const material_rubber = {
+  ambient: vec4(0.05, 0.0, 0.0, 1.0),
+  diffuse: vec4(0.5, 0.4, 0.4, 1.0),
+  specular: vec4(0.7, 0.04, 0.04, 1.0),
+  shininess: .078125*128,
+}
+
+const material_copper = {
+  ambient: vec4(0.19125, 0.0735, 0.0225, 1.0),
+  diffuse: vec4(0.7038, 0.27048, 0.0828, 1.0),
+  specular: vec4(0.256777, 0.137622, 0.086014, 1.0),
+  shininess: 0.1*128,
+}
+
+const material_silver = {
+  ambient: vec4(0.19225, 0.19225, 0.19225, 1.0),
+  diffuse: vec4(0.50754, 0.50754, 0.50754, 1.0),
+  specular: vec4(0.508273, 0.508273, 0.508273, 1.0),
+  shininess: 0.4*128,
+}
+
+const material_ruby = {
+  ambient: vec4(0.1745, 0.01175, 0.01175, 1.0),
+  diffuse: vec4(0.61424, 0.04136, 0.04136, 1.0),
+  specular: vec4(0.727811, 0.626959, 0.626959, 1.0),
+  shininess: 0.6*128,
+}
+
+const material_brass = {
+  ambient: vec4(0.329412, 0.223529, 0.027451, 1.0),
+  diffuse: vec4(0.780392, 0.568627, 0.113725, 1.0),
+  specular: vec4(0.992157, 0.941176, 0.807843, 1.0),
+  shininess: 0.21794872*128,
 }
 
 let materialAmbient = vec4(0.0, 0.0, 0.0, 1.0)
@@ -210,9 +266,33 @@ const init = () => {
       case "gold":
         setMaterial(material_gold)
         break
-      case "paper":
-        setMaterial(material_paper)
+      case "plastic":
+        setMaterial(material_plastic)
         break
+      case "jade":
+        setMaterial(material_jade)
+        break
+      case "obsidian":
+        setMaterial(material_obsidian)
+        break
+      case "rubber":
+        setMaterial(material_rubber)
+        break
+      case "copper":
+        setMaterial(material_copper)
+        break
+      case "silver":
+        setMaterial(material_silver)
+        break
+      case "brass":
+        setMaterial(material_brass)
+        break
+      case "ruby":
+        setMaterial(material_ruby)
+        break
+        case "pearl":
+          setMaterial(material_pearl)
+          break
       default:
         break
     }
@@ -229,11 +309,11 @@ const init = () => {
   }
 
   let ambientColorSelect = document.getElementById("ambient-color")
-  ambientColorSelect.value = "#999999"
+  ambientColorSelect.value = "#ffffff"
   let diffuseColorSelect = document.getElementById("diffuse-color")
   diffuseColorSelect.value = "#ffffff"
   let specularColorSelect = document.getElementById("specular-color")
-  specularColorSelect.value = "#0000ff"
+  specularColorSelect.value = "#ffffff"
   ambientColorSelect.onchange = (e) => {
     lightAmbient = hexColorToVec4(ambientColorSelect.value)
     updateLighting()
@@ -266,7 +346,7 @@ const init = () => {
         createShapeFromFunction(squareWave, 0.5, 3.4, 0.01, ((2 * Math.PI) / 360 * 10), -1, 0, 0)
         break
       case "line":
-        createShapeFromFunction(cylinderFunction, 0.5, 3, 0.01, ((2 * Math.PI) / 360 * 5), 0, 0, 0)
+        createShapeFromFunction(cylinderFunction, 1, 3, 0.01, ((2 * Math.PI) / 360 * 5), 0, 0, 0)
         break
       case "square-wave":
         createShapeFromFunction(squareWave, 0.5, 3.4, 0.01, ((2 * Math.PI) / 360 * 10), 0, 0, 0)
