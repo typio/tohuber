@@ -1,0 +1,107 @@
+<!-- Thomas Huber HW4 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Dancer</title>
+
+    <script type="text/javascript" src="Common/webgl-utils.js"></script>
+    <script type="text/javascript" src="Common/initShaders.js"></script>
+    <script type="text/javascript" src="Common/MV.js"></script>
+
+    <script src="main.js" defer></script>
+
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        attribute  vec4 vPosition;
+
+        uniform mat4 modelViewMatrix;
+        uniform mat4 projectionMatrix;
+        uniform vec4 color;
+        
+        varying vec4 fcolor;
+
+        attribute  vec2 vTexCoord;
+
+        varying vec2 fTexCoord;
+        
+        void main()  {
+            fcolor = color;
+            fTexCoord = vTexCoord;
+            gl_Position = projectionMatrix * modelViewMatrix * vPosition;
+        } 
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
+        varying vec4 fcolor;
+
+        varying  vec2 fTexCoord;
+
+        uniform sampler2D texture;
+        
+        void main() {
+            gl_FragColor = fcolor*texture2D( texture, fTexCoord );
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Dancer</h1>
+    <div class="canvas-and-about">
+
+        <canvas id="gl-canvas" width="512" height="512" style="border:solid;" oncontextmenu="return false"></canvas>
+        <ul>
+            <li>Thomas Huber</li>
+            <li>4/29/2022</li>
+            <br>
+            <li>
+                &emsp; This is a program demonstrating a hierarchical model and texture mapping.
+                <br>
+                <br>
+                &emsp; Drag in the canvas to move the camera (left click to rotate & right click to move
+                in/out).
+            </li>
+            <br>
+            <li>Resources used: </li>
+            <ul>
+                <li>
+                    Class provided materials
+                </li>
+                <li>
+                    <a
+                        href="https://www.youtube.com/watch?v=WSLMN6g_Od4">https://www.youtube.com/watch?v=WSLMN6g_Od4</a>
+                </li>
+            </ul>
+        </ul>
+
+    </div>
+    <p>
+    </p>
+    <button id="play-button" style="display:none">Play</button>
+    <button id="pause-button">Pause</button>
+</body>
+
+</html>
+
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    .canvas-and-about {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    ul {
+        list-style-type: none;
+        max-width: 450px;
+    }
+</style>

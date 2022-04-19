@@ -460,10 +460,10 @@ const init = () => {
         eye[k] = eye[k] + at[k]
 
       if (phi < piOver2 || phi > threePiOver2) {
-        up = vec3(0.0, 1.0, 0.0)
+        up = vec3(0.0, -1.0, 0.0)
       }
       else {
-        up = vec3(0.0, -1.0, 0.0)
+        up = vec3(0.0, 1.0, 0.0)
       }
 
       mouse.prevX = currentX
