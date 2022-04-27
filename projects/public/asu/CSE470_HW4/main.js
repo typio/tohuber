@@ -8,7 +8,6 @@ let index = 0
 
 let points = []
 
-
 let mouse = {
   prevX: 0,
   prevY: 0,
@@ -17,7 +16,7 @@ let mouse = {
   rightDown: false,
 }
 
-let radius = 5.0
+let radius = 15.0
 let theta = 3
 let phi = 3
 let dr = 10.0 * Math.PI / 180.0
@@ -125,15 +124,21 @@ let texCoordsArray = []
 let audio = new Audio('Chuck-Berry.mp3')
 
 let travolta_face_image = new Image()
-travolta_face_image.crossOrigin = "anonymous"
+travolta_face_image.crossOrigin = "data"
 travolta_face_image.src = "travolta_face.jpg"
 
 let travolta_tux_image = new Image()
-travolta_tux_image.crossOrigin = "anonymous"
+travolta_tux_image.crossOrigin = "data"
 travolta_tux_image.src = "travolta_tux.jpg"
+
+let tachometer_image = new Image()
+tachometer_image.crossOrigin = "data"
+// i made this one
+tachometer_image.src = "tachometer.png"
 
 let travolta_face_texture
 let travolta_tux_texture
+let tachometer_texture
 
 audio.play()
 audio.volume = 0.2
@@ -351,7 +356,8 @@ const init = () => {
 
   instanceMatrix = mat4()
 
-  projectionMatrix = ortho(-10.0, 10.0, -10.0, 10.0, -10.0, 10.0)
+  // projectionMatrix = ortho(-10.0, 10.0, -10.0, 10.0, -10.0, 10.0)
+  projectionMatrix = perspective(60, 1, 0.05, 100)
   modelViewMatrix = lookAt(eye, at, up)
 
   modelViewMatrixLoc = gl.getUniformLocation(program, "modelViewMatrix")
@@ -514,6 +520,16 @@ const init = () => {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST)
   gl.uniform1i(gl.getUniformLocation(program, "texture"), 0)
 
+  tachometer_texture = gl.createTexture()
+  gl.bindTexture(gl.TEXTURE_2D, tachometer_texture)
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB,
+    gl.RGB, gl.UNSIGNED_BYTE, tachometer_image)
+  gl.generateMipmap(gl.TEXTURE_2D)
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER,
+    gl.NEAREST_MIPMAP_LINEAR)
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST)
+  gl.uniform1i(gl.getUniformLocation(program, "texture"), 0)
+
   render()
 }
 
@@ -582,6 +598,13 @@ const render = () => {
   traverse(torsoId)
   initNodes()
 
+  gl.bindTexture(gl.TEXTURE_2D, tachometer_texture)
+  instanceMatrix = mult(modelViewMatrix, translate(0.0, -3.6, 0.0))
+  instanceMatrix = mult(instanceMatrix, scale4(40, 0.2, 40))
+  gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(instanceMatrix))
+  gl.uniform4fv(colorLoc, flatten(vec4(1.0, 1.0, 1.0, 1.0)))
+  for (let i = 0; i < 6; i++) gl.drawArrays(gl.TRIANGLE_FAN, 4 * i, 4)
+
   gl.drawArrays(gl.TRIANGLES, 0, 24)
 
   window.requestAnimFrame(render)
@@ -595,4 +618,12 @@ const render = () => {
 
 travolta_tux_image.onload = () => {
   init()
+
+  let r = radius * Math.sin(phi + piOver2)
+
+  eye = vec3(
+    r * Math.cos(theta + piOver2),
+    radius * Math.cos(phi + piOver2),
+    r * Math.sin(theta + piOver2)
+  )
 }
