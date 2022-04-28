@@ -49,7 +49,7 @@ let up = vec3(0.0, 1.0, 0.0)
 
 let fov = 60.0
 
-let playing = true
+let playing = false
 
 
 
@@ -140,7 +140,6 @@ let travolta_face_texture
 let travolta_tux_texture
 let tachometer_texture
 
-audio.play()
 audio.volume = 0.2
 
 const scale4 = (a, b, c) => {
@@ -616,7 +615,7 @@ const render = () => {
   lastTime = performance.now()
 }
 
-travolta_tux_image.onload = () => {
+window.onload = () => {
   init()
 
   let r = radius * Math.sin(phi + piOver2)
